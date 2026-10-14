@@ -1,11 +1,215 @@
-<!DOCTYPE html>
+<!-- all assigned classes and id are for css and javascript latur -->
+<!-- initial planning: compile possible certifications / digital badges / courses cpe students can take.
+  inspo came from the project of icpep. and, i just want to compile things i need to do or get every school break-->
+<!-- CPE Learning Hub is a curated directory that helps Computer Engineering students explore technical 
+ certifications and online courses across networking, cybersecurity, programming, cloud computing, Linux, and IT. -->
+<!--Organizes learning opportunities by credential type.
+Categorizes resources according to technical fields.
+Displays information about each certification or course.
+Provides official links.
+Allows users to search and filter resources.
+i tot about categorizing it as free or paid, or per organization, but eh parang masyadong mahaba-->
+<!--single page website structure
+navigation bar
+hero section (website intrduction + browse resources button)
+credential types (certification, course certificate, badge)
+resource directory (search bar, category filter, resource cards)
+about section (purpose, target audience, scope)
+footer-->
+ <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CPE Learning Hub</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A directory of certifications and online courses for Computer Engineering students.">
+  <title>CPE Learning Hub</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
+
+
 <body>
-    
+  <!-- asa header yung nav para mas maganda tignan and inde nakakalat kagaya sa student profile. di ko talaga maayos dun huhu -->
+  <header>
+    <nav class="navbar">
+      <a href="#home" class="logo">CPE Learning Hub</a>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#credentials">Credentials</a></li>
+        <li><a href="#directory">Directory</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+      <button id="theme-toggle" class="theme-btn">☀️ Light Mode</button>
+    </nav>
+  </header>
+
+  <!-- forda convenience, everything is under a section or article para mas madali sya i-treat as a "card" or like group related contents. -->
+  <main>
+    <!-- layk para sa intro to -->
+    <section id="home" class="hero">
+        <article class="hero-text">
+            <p class="tagline">Explore. Learn. Certify.</p>
+            <h1>Discover Your Path in Computer Engineering</h1>
+            <p class="hero-description">
+              Explore professional certifications, online courses, and digital learning
+              opportunities designed to help Computer Engineering students develop
+              practical technical skills and earn industry credentials.
+            </p>
+        </article>
+        <!-- like the banner sa student profile -->
+        <figure class="hero hero-image">
+          <img src="images/fortinet_cert.png" alt="Sample certificate of completion">
+        </figure>
+    </section>
+
+    <!-- forda description ng types ng credentials since they ain't the same. 
+     yung iba mas mataas makukuha mong industry credential-->
+    <section id="credentials" class="section">
+        <h2>Types of Credentials</h2>
+        <p class="section-intro">
+            Not all credentials are the same. Here is the difference between the three
+            types you will see in this directory.
+        </p>
+
+        <section class="credential-row list-left">
+          <article class="credential-card">
+              <span class="icon">🏅</span>
+              <h3>Certification</h3>
+              <p>Validates your skills through a defined certification process, such as passing an exam.</p>
+          </article>
+            
+          <article class="credential-list">
+            <h4>Sample Certifications</h4>
+            <ul>
+              <li>CompTIA Network+</li>
+              <li>CompTIA Security+</li>
+              <li>Cisco Certified Network Associate (CCNA)</li>
+              <li>Cloud Digital Leader</li>
+              <li>Certified in Cybersecurity (CC)</li>
+            </ul>
+          </article>
+        </section>
+          
+        <section class="credential-row">
+          <article class="credential-card">
+            <span class="icon">📜</span>
+            <h3>Course Certificate</h3>
+            <p>Shows that you completed a specific course or program.</p>
+          </article>
+
+          <article class="credential-list">
+            <h4>Sample Courses</h4>
+            <ul>
+              <li>Google IT Support Certificate</li>
+              <li>Google Cybersecurity Certificate</li>
+              <li>Google Data Analytics Certificate</li>
+              <li>CS50x: Introduction to Computer Science</li>
+              <li>Responsive Web Design</li>
+            </ul>
+          </article>
+        </section>
+        <section class="credential-row list-left">
+            <article class="credential-card">
+              <span class="icon">🎖️</span>
+              <h3>Digital Badge</h3>
+              <p>A digital recognition of an achievement or skill that you can show online.</p>
+            </article>
+
+            <article class="credential-list">
+              <h4>Where to Get Digital Badges</h4>
+              <ul>
+                <li>Cisco Networking Academy (Skills for All)</li>
+                <li>Google Cloud Skills Boost</li>
+                <li>AWS Skill Builder</li>
+                <li>IBM SkillsBuild</li>
+                <li>Credly (a platform used by many providers)</li>
+              </ul>
+            </article>
+          </section>
+    </section>
+
+    <!-- yung mga resourse card, nasa JavaScript array para mas madali ieedit instead na gawan ko dito ng course card. 
+     natuto na ko sa student profile website ko lol. ang hirap iayos nun-->
+    <!-- next is the directory, tho yung search input area and mga filter buttons lang nandito since nasa JS na yung iba.-->
+    <section id="directory" class="section">
+      <h2>Resource Directory</h2>
+      <p class="section-intro">
+        Search or filter to find certifications and courses. Always check the official
+        website for the latest details and costs.
+      </p>
+
+      <!-- search box-->
+      <section class="search-box">
+        <label for="search-input"> Search Resources</label>
+        <input type="text" id="search-input" placeholder="Search by name or provider...">
+        <br><br>  
+
+        <!-- dito ka mag add ng other button if you want to add other category / filter. tho sa finals na to.-->
+        <nav class="filter-buttons">
+          <button class="filter-btn active" data-category="All">All</button>
+          <button class="filter-btn" data-category="Networking">Networking</button>
+          <button class="filter-btn" data-category="Cybersecurity">Cybersecurity</button>
+          <button class="filter-btn" data-category="Programming">Programming</button>
+          <button class="filter-btn" data-category="Cloud Computing">Cloud Computing</button>
+          <button class="filter-btn" data-category="Linux and Systems Administration">Linux and SysAdmin</button>
+          <button class="filter-btn" data-category="IT and Data">IT and Data</button>
+        </nav>
+      </section>
+
+      <!-- creates a section for the resource list which is then created through JS-->
+      <section id="resource-list" class="resource-grid"></section>
+      <!-- default kasi wala pa dito lahat ng subject like EMBESY-->
+      <p id="no-results" class="no-results">No resources found. Try a different search or category.</p>
+    </section>
+
+    <!-- about section syempre. kahit ano nalang na kaemehan para di sya magmukhang empty lol-->
+    <section id="about" class="section">
+      <h2>About CPE Learning Hub</h2>
+
+      <section class="about-grid">
+        <article class="about-box">
+          <h3>Purpose</h3>
+          <p>
+            CPE Learning Hub is a curated directory that helps students discover
+            learning opportunities and understand the difference between earning a
+            professional certification and completing a course.
+          </p>
+        </article>
+
+        <article class="about-box">
+          <h3>Target Audience</h3>
+          <ul>
+            <li>Computer Engineering students</li>
+            <li>Students beginning their IT and networking journey</li>
+            <li>Learners looking for relevant certifications and courses</li>
+            <li>Students who want to build skills outside their curriculum</li>
+          </ul>
+        </article>
+
+        <article class="about-box">
+          <h3>Scope</h3>
+          <p><strong>This website does:</strong></p>
+          <ul>
+            <li>Organize resources by credential type and category</li>
+            <li>Show information about each resource</li>
+            <li>Link to official provider pages</li>
+          </ul>
+          <p><strong>This website does not:</strong></p>
+          <ul>
+            <li>Issue certifications or host courses</li>
+            <li>Process payments or track progress</li>
+            <li>Include every certification in the world</li>
+          </ul>
+        </article>
+      </section>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p><strong>CPE Learning Hub</strong> - Explore. Learn. Certify.</p>
+    <p> 2026 Jhobelle Kate C. Gonzales. All rights reserved. Resource details may change, so please check the official websites.</p>
+  </footer>
+
+  <script src="js/script.js"></script>
 </body>
 </html>
