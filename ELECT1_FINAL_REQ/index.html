@@ -1,215 +1,396 @@
-<!-- all assigned classes and id are for css and javascript latur -->
-<!-- initial planning: compile possible certifications / digital badges / courses cpe students can take.
-  inspo came from the project of icpep. and, i just want to compile things i need to do or get every school break-->
-<!-- CPE Learning Hub is a curated directory that helps Computer Engineering students explore technical 
- certifications and online courses across networking, cybersecurity, programming, cloud computing, Linux, and IT. -->
-<!--Organizes learning opportunities by credential type.
-Categorizes resources according to technical fields.
-Displays information about each certification or course.
-Provides official links.
-Allows users to search and filter resources.
-i tot about categorizing it as free or paid, or per organization, but eh parang masyadong mahaba-->
-<!--single page website structure
-navigation bar
-hero section (website intrduction + browse resources button)
-credential types (certification, course certificate, badge)
-resource directory (search bar, category filter, resource cards)
-about section (purpose, target audience, scope)
-footer-->
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="A directory of certifications and online courses for Computer Engineering students.">
+  <meta name="description" content="A directory of certifications, career paths and a personal learning roadmap for Computer Engineering students.">
   <title>CPE Learning Hub</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 
 <body>
-  <!-- asa header yung nav para mas maganda tignan and inde nakakalat kagaya sa student profile. di ko talaga maayos dun huhu -->
+  <!-- Navigation. The links below match the section ids further down the page. -->
   <header>
     <nav class="navbar">
       <a href="#home" class="logo">CPE Learning Hub</a>
-      <ul class="nav-links">
+
+
+      <!-- This button only shows on small screens. script.js opens and closes the menu. -->
+      <button id="menu-toggle" class="menu-btn" aria-expanded="false" aria-controls="nav-links">☰ Menu</button>
+
+
+      <ul id="nav-links" class="nav-links">
         <li><a href="#home">Home</a></li>
         <li><a href="#credentials">Credentials</a></li>
-        <li><a href="#directory">Directory</a></li>
+        <li><a href="#directory">Certifications</a></li>
+        <li><a href="#career-paths">Career Paths</a></li>
+        <li><a href="#roadmap">My Roadmap</a></li>
+        <li><a href="#resources">Learning Resources</a></li>
         <li><a href="#about">About</a></li>
       </ul>
-      <button id="theme-toggle" class="theme-btn">☀️ Light Mode</button>
+
+
+      <button id="theme-toggle" class="theme-btn" aria-pressed="false">🌙 Dark Mode</button>
     </nav>
   </header>
 
-  <!-- forda convenience, everything is under a section or article para mas madali sya i-treat as a "card" or like group related contents. -->
+
   <main>
-    <!-- layk para sa intro to -->
+    <!-- HOME: intro, quick buttons, certificate image -->
     <section id="home" class="hero">
-        <article class="hero-text">
-            <p class="tagline">Explore. Learn. Certify.</p>
-            <h1>Discover Your Path in Computer Engineering</h1>
-            <p class="hero-description">
-              Explore professional certifications, online courses, and digital learning
-              opportunities designed to help Computer Engineering students develop
-              practical technical skills and earn industry credentials.
-            </p>
-        </article>
-        <!-- like the banner sa student profile -->
-        <figure class="hero hero-image">
-          <img src="images/fortinet_cert.png" alt="Sample certificate of completion">
-        </figure>
-    </section>
-
-    <!-- forda description ng types ng credentials since they ain't the same. 
-     yung iba mas mataas makukuha mong industry credential-->
-    <section id="credentials" class="section">
-        <h2>Types of Credentials</h2>
-        <p class="section-intro">
-            Not all credentials are the same. Here is the difference between the three
-            types you will see in this directory.
+      <article class="hero-text">
+        <p class="tagline">Explore Your Path. Build Your Skills. Shape Your Future.</p>
+        <h1>Discover Your Path in Computer Engineering</h1>
+        <p class="hero-description">
+          Explore professional certifications, online courses and digital badges,
+          then build a learning roadmap that fits your goals as a Computer Engineering student.
         </p>
+        <div class="hero-buttons">
+          <a href="#directory" class="btn">Browse Certifications</a>
+          <a href="#explorer" class="btn btn-outline">Plan My Roadmap</a>
+        </div>
+      </article>
 
-        <section class="credential-row list-left">
-          <article class="credential-card">
-              <span class="icon">🏅</span>
-              <h3>Certification</h3>
-              <p>Validates your skills through a defined certification process, such as passing an exam.</p>
-          </article>
-            
-          <article class="credential-list">
-            <h4>Sample Certifications</h4>
-            <ul>
-              <li>CompTIA Network+</li>
-              <li>CompTIA Security+</li>
-              <li>Cisco Certified Network Associate (CCNA)</li>
-              <li>Cloud Digital Leader</li>
-              <li>Certified in Cybersecurity (CC)</li>
-            </ul>
-          </article>
-        </section>
-          
-        <section class="credential-row">
-          <article class="credential-card">
-            <span class="icon">📜</span>
-            <h3>Course Certificate</h3>
-            <p>Shows that you completed a specific course or program.</p>
-          </article>
 
-          <article class="credential-list">
-            <h4>Sample Courses</h4>
-            <ul>
-              <li>Google IT Support Certificate</li>
-              <li>Google Cybersecurity Certificate</li>
-              <li>Google Data Analytics Certificate</li>
-              <li>CS50x: Introduction to Computer Science</li>
-              <li>Responsive Web Design</li>
-            </ul>
-          </article>
-        </section>
-        <section class="credential-row list-left">
-            <article class="credential-card">
-              <span class="icon">🎖️</span>
-              <h3>Digital Badge</h3>
-              <p>A digital recognition of an achievement or skill that you can show online.</p>
-            </article>
-
-            <article class="credential-list">
-              <h4>Where to Get Digital Badges</h4>
-              <ul>
-                <li>Cisco Networking Academy (Skills for All)</li>
-                <li>Google Cloud Skills Boost</li>
-                <li>AWS Skill Builder</li>
-                <li>IBM SkillsBuild</li>
-                <li>Credly (a platform used by many providers)</li>
-              </ul>
-            </article>
-          </section>
+      <figure class="hero-image">
+        <img src="images/fortinet_cert.png" alt="Sample certificate of completion">
+      </figure>
     </section>
 
-    <!-- yung mga resourse card, nasa JavaScript array para mas madali ieedit instead na gawan ko dito ng course card. 
-     natuto na ko sa student profile website ko lol. ang hirap iayos nun-->
-    <!-- next is the directory, tho yung search input area and mga filter buttons lang nandito since nasa JS na yung iba.-->
+
+    <!-- Featured certifications and career categories. Both are filled in by directory.js and roadmap.js -->
+    <section id="featured" class="section">
+      <h2>Featured Certifications</h2>
+      <p class="section-intro">Good starting points for beginners. Select a card to see more details.</p>
+      <section id="featured-list" class="resource-grid"></section>
+
+
+      <h3 class="sub-heading">Browse by career path</h3>
+      <nav id="home-paths" class="chip-row" aria-label="Career paths"></nav>
+    </section>
+
+
+    <!-- CREDENTIAL TYPES -->
+    <section id="credentials" class="section">
+      <h2>Types of Credentials</h2>
+      <p class="section-intro">
+        Not all credentials are the same. Here are the differences between the three
+        types you will see in this directory.
+      </p>
+
+
+      <section class="credential-row list-left">
+        <article class="credential-card">
+          <span class="icon">🏅</span>
+          <h3>Certification</h3>
+          <p>Validates your skills through a defined certification process, such as passing an exam.</p>
+        </article>
+        <article class="credential-list">
+          <h4>Sample Certifications</h4>
+          <ul>
+            <li>CompTIA Network+</li>
+            <li>CompTIA Security+</li>
+            <li>Cisco Certified Network Associate (CCNA)</li>
+            <li>Cloud Digital Leader</li>
+            <li>Certified in Cybersecurity (CC)</li>
+          </ul>
+        </article>
+      </section>
+
+
+      <section class="credential-row">
+        <article class="credential-card">
+          <span class="icon">📜</span>
+          <h3>Course Certificate</h3>
+          <p>Shows that you completed a specific course or program.</p>
+        </article>
+        <article class="credential-list">
+          <h4>Sample Courses</h4>
+          <ul>
+            <li>Google IT Support Certificate</li>
+            <li>Google Cybersecurity Certificate</li>
+            <li>Google Data Analytics Certificate</li>
+            <li>CS50x: Introduction to Computer Science</li>
+            <li>Responsive Web Design</li>
+          </ul>
+        </article>
+      </section>
+
+
+      <section class="credential-row list-left">
+        <article class="credential-card">
+          <span class="icon">🎖️</span>
+          <h3>Digital Badge</h3>
+          <p>A digital recognition of an achievement or skill that you can show online.</p>
+        </article>
+        <article class="credential-list">
+          <h4>Where to Get Digital Badges</h4>
+          <ul>
+            <li>Cisco Networking Academy (Skills for All)</li>
+            <li>Google Cloud Skills Boost</li>
+            <li>AWS Skill Builder</li>
+            <li>IBM SkillsBuild</li>
+            <li>Credly (a platform used by many providers)</li>
+          </ul>
+        </article>
+      </section>
+    </section>
+
+
+    <!-- CERTIFICATION DIRECTORY: only the controls are here. The cards are made by directory.js -->
     <section id="directory" class="section">
-      <h2>Resource Directory</h2>
+      <h2>Certification Directory</h2>
       <p class="section-intro">
         Search or filter to find certifications and courses. Always check the official
         website for the latest details and costs.
       </p>
 
-      <!-- search box-->
-      <section class="search-box">
-        <label for="search-input"> Search Resources</label>
-        <input type="text" id="search-input" placeholder="Search by name or provider...">
-        <br><br>  
 
-        <!-- dito ka mag add ng other button if you want to add other category / filter. tho sa finals na to.-->
-        <nav class="filter-buttons">
+      <section class="search-box">
+        <label for="search-input">Search resources</label>
+        <input type="text" id="search-input" placeholder="Search by name, provider or skill...">
+
+
+        <!-- Category buttons. To add a category, add a button here and use the same name in resources-data.js -->
+        <nav class="filter-buttons" aria-label="Category filter">
           <button class="filter-btn active" data-category="All">All</button>
           <button class="filter-btn" data-category="Networking">Networking</button>
           <button class="filter-btn" data-category="Cybersecurity">Cybersecurity</button>
           <button class="filter-btn" data-category="Programming">Programming</button>
+          <button class="filter-btn" data-category="Embedded Systems">Embedded Systems</button>
           <button class="filter-btn" data-category="Cloud Computing">Cloud Computing</button>
+          <button class="filter-btn" data-category="Electronics">Electronics</button>
           <button class="filter-btn" data-category="Linux and Systems Administration">Linux and SysAdmin</button>
           <button class="filter-btn" data-category="IT and Data">IT and Data</button>
         </nav>
+
+
+        <!-- Dropdown filters. The options are filled in by directory.js -->
+        <div class="select-row">
+          <div>
+            <label for="type-filter">Credential type</label>
+            <select id="type-filter"></select>
+          </div>
+          <div>
+            <label for="level-filter">Difficulty level</label>
+            <select id="level-filter"></select>
+          </div>
+          <div>
+            <label for="path-filter">Career path</label>
+            <select id="path-filter"></select>
+          </div>
+          <div>
+            <label for="provider-filter">Provider</label>
+            <select id="provider-filter"></select>
+          </div>
+        </div>
+
+
+        <div class="result-row">
+          <p id="result-count" class="result-count" aria-live="polite"></p>
+          <button id="reset-filters" class="link-btn" type="button">Reset all filters</button>
+        </div>
       </section>
 
-      <!-- creates a section for the resource list which is then created through JS-->
+
       <section id="resource-list" class="resource-grid"></section>
-      <!-- default kasi wala pa dito lahat ng subject like EMBESY-->
-      <p id="no-results" class="no-results">No resources found. Try a different search or category.</p>
+      <p id="no-results" class="no-results">No resources found. Try a different search or reset the filters.</p>
+
+
+      <!-- Certification details pop-up -->
+      <dialog id="detail-dialog" aria-labelledby="detail-title">
+        <article id="detail-content"></article>
+        <button id="detail-close" class="btn" type="button">Close</button>
+      </dialog>
     </section>
 
-    <!-- about section syempre. kahit ano nalang na kaemehan para di sya magmukhang empty lol-->
+
+    <!-- CAREER PATHS: overview cards, then the Career Path Explorer form -->
+    <section id="career-paths" class="section">
+      <h2>Skills and Career Paths</h2>
+      <p class="section-intro">
+        Computer Engineering opens many directions. Each path below lists typical skills and
+        certifications that students often explore. These are suggestions, not requirements.
+      </p>
+      <section id="path-list" class="path-grid"></section>
+    </section>
+
+
+    <section id="explorer" class="section">
+      <h2>Career Path Explorer</h2>
+      <p class="section-intro">
+        Answer the form to get a suggested learning roadmap. Fields marked with * are required.
+      </p>
+
+
+      <form id="explorer-form" class="explorer-form" novalidate>
+        <fieldset>
+          <legend>1. Career path *</legend>
+          <label for="path-select">Which path do you want to explore?</label>
+          <select id="path-select" name="path" aria-describedby="path-error"></select>
+          <p id="path-error" class="error-msg" role="alert"></p>
+        </fieldset>
+
+
+        <fieldset>
+          <legend>2. Your current skill level *</legend>
+          <div class="radio-group">
+            <label><input type="radio" name="level" value="Beginner"> Beginner: I am just starting</label>
+            <label><input type="radio" name="level" value="Intermediate"> Intermediate: I know the basics</label>
+            <label><input type="radio" name="level" value="Advanced"> Advanced: I have done projects or exams</label>
+          </div>
+          <p id="level-error" class="error-msg" role="alert"></p>
+        </fieldset>
+
+
+        <fieldset>
+          <legend>3. Skills you already have</legend>
+          <div id="skill-checklist" class="check-group"></div>
+        </fieldset>
+
+
+        <fieldset>
+          <legend>4. Credentials you already completed</legend>
+          <div id="credential-checklist" class="check-group"></div>
+        </fieldset>
+
+
+        <p id="form-message" class="form-message" role="alert"></p>
+
+
+        <div class="form-buttons">
+          <button type="submit" class="btn">Generate My Roadmap</button>
+          <button type="button" id="clear-form-btn" class="btn btn-outline">Clear everything</button>
+        </div>
+      </form>
+    </section>
+
+
+    <!-- MY ROADMAP: filled in by roadmap.js -->
+    <section id="roadmap" class="section">
+      <h2>My Learning Roadmap</h2>
+
+
+      <!-- Empty state, shown until a roadmap exists -->
+      <div id="roadmap-empty" class="empty-state">
+        <p>You do not have a roadmap yet.</p>
+        <p>Fill in the <a href="#explorer">Career Path Explorer</a> and select Generate My Roadmap.</p>
+      </div>
+
+
+      <div id="roadmap-output" hidden>
+        <h3 id="roadmap-title"></h3>
+        <p id="roadmap-summary" class="section-intro"></p>
+
+
+        <div class="progress-box">
+          <p id="progress-text" class="progress-text" aria-live="polite"></p>
+          <div class="progress" id="progress-bar" role="progressbar" aria-label="Roadmap progress"
+               aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div id="progress-fill"></div>
+          </div>
+        </div>
+
+
+        <section class="skills-columns">
+          <article class="about-box">
+            <h4>Skills you have</h4>
+            <ul id="skills-have"></ul>
+          </article>
+          <article class="about-box">
+            <h4>Skill gaps to build</h4>
+            <ul id="skills-gap"></ul>
+          </article>
+        </section>
+
+
+        <h3 class="sub-heading">Suggested learning steps</h3>
+        <p class="section-intro">Check a step when you finish it. Your progress is saved in this browser.</p>
+        <ol id="roadmap-steps" class="steps"></ol>
+        <p id="roadmap-note" class="section-intro"></p>
+
+
+        <button type="button" id="reset-roadmap" class="btn btn-outline">Clear roadmap and start over</button>
+      </div>
+    </section>
+
+
+    <!-- LEARNING RESOURCES: filled in by roadmap.js from career-data.js -->
+    <section id="resources" class="section">
+      <h2>Learning Resources</h2>
+      <p class="section-intro">
+        Official websites, documentation and tutorials grouped by career path.
+        Links open in a new tab.
+      </p>
+      <section id="resource-links" class="about-grid"></section>
+    </section>
+
+
+    <!-- ABOUT -->
     <section id="about" class="section">
       <h2>About CPE Learning Hub</h2>
+
 
       <section class="about-grid">
         <article class="about-box">
           <h3>Purpose</h3>
           <p>
             CPE Learning Hub is a curated directory that helps students discover
-            learning opportunities and understand the difference between earning a
-            professional certification and completing a course.
+            learning opportunities, understand the difference between a certification
+            and a course, and plan what to learn next.
           </p>
         </article>
+
 
         <article class="about-box">
           <h3>Target Audience</h3>
           <ul>
-            <li>Computer Engineering students</li>
-            <li>Students beginning their IT and networking journey</li>
-            <li>Learners looking for relevant certifications and courses</li>
+            <li>Computer Engineering and IT students</li>
+            <li>Beginners in networking, cybersecurity, programming, embedded systems and cloud</li>
+            <li>Students preparing for internships or future technical work</li>
             <li>Students who want to build skills outside their curriculum</li>
           </ul>
         </article>
+
 
         <article class="about-box">
           <h3>Scope</h3>
           <p><strong>This website does:</strong></p>
           <ul>
-            <li>Organize resources by credential type and category</li>
-            <li>Show information about each resource</li>
+            <li>Organize resources by credential type, category and career path</li>
+            <li>Suggest a learning roadmap and save your progress in your browser</li>
             <li>Link to official provider pages</li>
           </ul>
           <p><strong>This website does not:</strong></p>
           <ul>
             <li>Issue certifications or host courses</li>
-            <li>Process payments or track progress</li>
+            <li>Guarantee jobs or official career advice</li>
             <li>Include every certification in the world</li>
           </ul>
         </article>
       </section>
     </section>
-
   </main>
 
+
   <footer class="footer">
-    <p><strong>CPE Learning Hub</strong> - Explore. Learn. Certify.</p>
-    <p> 2026 Jhobelle Kate C. Gonzales. All rights reserved. Resource details may change, so please check the official websites.</p>
+    <p><strong>CPE Learning Hub</strong> - Explore Your Path. Build Your Skills. Shape Your Future.</p>
+    <p>© 2026 Jhobelle Kate C. Gonzales. All rights reserved. Resource details may change, so please check the official websites.</p>
   </footer>
 
-  <script src="js/script.js"></script>
+
+  <!-- Load order matters: data first, then features, then script.js starts everything. -->
+  <script src="resources-data.js"></script>
+  <script src="career-data.js"></script>
+  <script src="directory.js"></script>
+  <script src="roadmap.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
+
+
+
+
+
+
