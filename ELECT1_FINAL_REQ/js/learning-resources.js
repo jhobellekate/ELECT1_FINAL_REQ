@@ -1,81 +1,386 @@
+var LEVELS = ["Beginner", "Intermediate", "Advanced"];
 
-const LEARNING_RESOURCES = [
+
+// Cards shown in the "Featured Certifications" section on the home page
+var FEATURED_IDS = [
+  "ccst-networking",
+  "isc2-cc",
+  "google-cloud-digital-leader",
+  "cs50x",
+  "lpi-linux-essentials",
+  "arduino-fundamentals"
+];
+
+
+var COST_NOTE = "Check the official site for current fees.";
+
+
+var RESOURCES = [
+  {
+    id: "ccst-networking",
+    name: "Cisco Certified Support Technician (CCST) Networking",
+    provider: "Cisco",
+    type: "Certification",
+    category: "Networking",
+    level: "Beginner",
+    description: "Entry-level certification covering foundational networking knowledge.",
+    cost: "US$125 exam fee; verify current price on Cisco website.",
+    link: "https://www.cisco.com/site/us/en/learn/training-certifications/exams/ccst-networking.html",
+    skills: ["networking-basics", "ip-addressing", "troubleshooting"],
+    careerPaths: ["networking", "cybersecurity", "cloud", "iot"],
+    prerequisites: []
+  },
+  {
+    id: "ccst-cybersecurity",
+    name: "Cisco Certified Support Technician (CCST) Cybersecurity",
+    provider: "Cisco",
+    type: "Certification",
+    category: "Cybersecurity",
+    level: "Beginner",
+    description: "Entry-level certification covering basic security concepts.",
+    cost: "US$125 exam fee; verify current price on Cisco website.",
+    link: "https://www.netacad.com/resources/program-info/ccst-cybersecurity",
+    skills: ["security-fundamentals", "network-security-basics"],
+    careerPaths: ["cybersecurity"],
+    prerequisites: []
+  },
+  {
+    id: "ccna",
+    name: "Cisco Certified Network Associate (CCNA)",
+    provider: "Cisco",
+    type: "Certification",
+    category: "Networking",
+    level: "Intermediate",
+    description: "Associate-level certification on network fundamentals, IP connectivity, network access, security basics and automation.",
+    cost: "US$300 exam fee; verify current price on Cisco website.",
+    link: "https://www.cisco.com/site/us/en/learn/training-certifications/certifications/enterprise/ccna/index.html",
+    skills: ["networking-basics", "ip-addressing", "routing-switching", "network-security-basics"],
+    careerPaths: ["networking"],
+    prerequisites: []
+  },
+  {
+    id: "comptia-network-plus",
+    name: "CompTIA Network+",
+    provider: "CompTIA",
+    type: "Certification",
+    category: "Networking",
+    level: "Intermediate",
+    description: "Vendor-neutral networking certification covering network concepts, implementation and troubleshooting.",
+    cost:  "Price varies; check CompTIA for the current exam voucher price.",
+    link: "https://www.comptia.org/en/certifications/network/",
+    skills: ["networking-basics", "ip-addressing", "troubleshooting", "network-security-basics"],
+    careerPaths: ["networking", "cybersecurity"],
+    prerequisites: []
+  },
+  {
+    id: "comptia-a-plus",
+    name: "CompTIA A+",
+    provider: "CompTIA",
+    type: "Certification",
+    category: "IT and Data",
+    level: "Beginner",
+    description: "Entry-level IT certification on hardware, operating systems and troubleshooting.",
+    cost: "Two exams are required; check CompTIA for current voucher prices.",
+    link: "https://www.comptia.org/en/certifications/a/",
+    skills: ["hardware-basics", "troubleshooting"],
+    careerPaths: ["networking"],
+    prerequisites: []
+  },
+  {
+    id: "comptia-security-plus",
+    name: "CompTIA Security+",
+    provider: "CompTIA",
+    type: "Certification",
+    category: "Cybersecurity",
+    level: "Intermediate",
+    description: "Vendor-neutral certification covering core cybersecurity concepts and practices.",
+    cost:  "Price varies; check CompTIA for the current exam voucher price.",
+    link: "https://www.comptia.org/certifications/security",
+    skills: ["security-fundamentals", "network-security-basics"],
+    careerPaths: ["cybersecurity"],
+    prerequisites: []
+  },
+  {
+    id: "isc2-cc",
+    name: "Certified in Cybersecurity (CC)",
+    provider: "ISC2",
+    type: "Certification",
+    category: "Cybersecurity",
+    level: "Beginner",
+    description: "Entry-level cybersecurity certification from ISC2 for people starting out in the field.",
+    cost: "US$199 standard exam registration; check ISC2 for current pricing and free-exam eligibility.",
+    link: "https://www.isc2.org/certifications/cc",
+    skills: ["security-fundamentals", "network-security-basics"],
+    careerPaths: ["cybersecurity"],
+    prerequisites: []
+  },
+  {
+    id: "google-cloud-digital-leader",
+    name: "Cloud Digital Leader",
+    provider: "Google Cloud",
+    type: "Certification",
+    category: "Cloud Computing",
+    level: "Beginner",
+    description: "Foundational certification on cloud concepts and Google Cloud products and services.",
+    cost: "US$99 exam fee, plus applicable tax; verify current price on Google Cloud website.",
+    link: "https://cloud.google.com/learn/certification/cloud-digital-leader",
+    skills: ["cloud-concepts", "cloud-services"],
+    careerPaths: ["cloud", "iot"],
+    prerequisites: []
+  },
+  {
+    id: "aws-cloud-practitioner",
+    name: "AWS Certified Cloud Practitioner",
+    provider: "Amazon Web Services",
+    type: "Certification",
+    category: "Cloud Computing",
+    level: "Beginner",
+    description: "Foundational certification on AWS cloud concepts, services, security and pricing.",
+    cost: "US$100 exam fee; verify current regional price on AWS website.",
+    link: "https://aws.amazon.com/certification/certified-cloud-practitioner/",
+    skills: ["cloud-concepts", "cloud-services"],
+    careerPaths: ["cloud"],
+    prerequisites: []
+  },
+  {
+    id: "azure-fundamentals",
+    name: "Microsoft Azure Fundamentals (AZ-900)",
+    provider: "Microsoft",
+    type: "Certification",
+    category: "Cloud Computing",
+    level: "Beginner",
+    description: "Foundational certification on cloud concepts and core Azure services.",
+    cost: "US$99 exam fee in many regions; price varies by country. Verify on Microsoft website.",
+    link: "https://learn.microsoft.com/en-us/credentials/certifications/azure-fundamentals/",
+    skills: ["cloud-concepts", "cloud-services"],
+    careerPaths: ["cloud"],
+    prerequisites: []
+  },
+  {
+    id: "gcloud-skills-boost-badges",
+    name: "Google Cloud Skills Boost Badges",
+    provider: "Google Cloud",
+    type: "Digital Badge",
+    category: "Cloud Computing",
+    level: "Beginner",
+    description: "Hands-on labs and courses that award digital skill badges.",
+    cost: "Some learning options are free; paid subscriptions and activities vary. Check Google Cloud Skills Boost.",
+    link: "https://www.cloudskillsboost.google/",
+    skills: ["cloud-services"],
+    careerPaths: ["cloud"],
+    prerequisites: []
+  },
+  {
+    id: "aws-skill-builder-badges",
+    name: "AWS Skill Builder Digital Badges",
+    provider: "Amazon Web Services",
+    type: "Digital Badge",
+    category: "Cloud Computing",
+    level: "Beginner",
+    description: "Learning plans and courses on AWS, with digital badges for some achievements.",
+    cost: "Free and paid learning options are available; check AWS Skill Builder for current costs.",
+    link: "https://skillbuilder.aws/",
+    skills: ["cloud-concepts", "cloud-services"],
+    careerPaths: ["cloud"],
+    prerequisites: []
+  },
   {
     id: "cisco-skills-for-all",
-    title: "Cisco Skills for All",
-    provider: "Cisco",
-    category: "Networking and Cybersecurity",
-    description:
-      "Explore introductory courses related to networking, cybersecurity, and other technical skills.",
-    url: "https://skillsforall.com/",
-    suitableFor: [
-      "networking",
-      "cybersecurity"
-    ]
-  },
-  {
-    id: "cisco-networking-academy",
-    title: "Cisco Networking Academy",
-    provider: "Cisco",
+    name: "Cisco Networking Academy: Skills for All",
+    provider: "Cisco Networking Academy",
+    type: "Digital Badge",
     category: "Networking",
-    description:
-      "Explore networking and IT learning materials and courses offered through Cisco Networking Academy.",
-    url: "https://www.netacad.com/",
-    suitableFor: [
-      "networking",
-      "cybersecurity"
-    ]
+    level: "Beginner",
+    description: "Self-paced courses on networking, cybersecurity and more, with digital badges.",
+    cost: "Free courses; check the course page for any credential or exam fees.",
+    link: "https://skillsforall.com/",
+    skills: ["networking-basics"],
+    careerPaths: ["networking", "iot"],
+    prerequisites: []
   },
   {
-    id: "isc2-training",
-    title: "ISC2 Training and Education",
-    provider: "ISC2",
+    id: "ibm-skillsbuild",
+    name: "IBM SkillsBuild",
+    provider: "IBM",
+    type: "Digital Badge",
+    category: "IT and Data",
+    level: "Beginner",
+    description: "Free learning platform with courses in areas such as data, cloud and cybersecurity, with digital credentials.",
+    cost: "Free learning and digital credentials; check the specific program for exceptions.",
+    link: "https://skillsbuild.org/",
+    skills: ["cloud-concepts", "data-analysis"],
+    careerPaths: ["cloud"],
+    prerequisites: []
+  },
+  {
+    id: "google-it-support",
+    name: "Google IT Support Certificate",
+    provider: "Google",
+    type: "Course Certificate",
+    category: "IT and Data",
+    level: "Beginner",
+    description: "Beginner program covering IT support, networking, operating systems and troubleshooting.",
+    cost: "Coursera subscription; US$49/month in the US and Canada at time of review. Regional prices may differ; check Coursera.",
+    link: "https://grow.google/certificates/",
+    skills: ["troubleshooting", "networking-basics", "command-line"],
+    careerPaths: ["networking"],
+    prerequisites: []
+  },
+  {
+    id: "google-cybersecurity",
+    name: "Google Cybersecurity Certificate",
+    provider: "Google",
+    type: "Course Certificate",
     category: "Cybersecurity",
-    description:
-      "Explore cybersecurity education and information about ISC2 certifications.",
-    url: "https://www.isc2.org/",
-    suitableFor: [
-      "cybersecurity"
-    ]
+    level: "Beginner",
+    description: "Beginner program on security concepts, Linux and command-line tools for security work.",
+    cost: "Coursera subscription; US$49/month in the US and Canada at time of review. Regional prices may differ; check Coursera.",
+    link: "https://www.coursera.org/professional-certificates/google-cybersecurity",
+    skills: ["security-fundamentals", "linux-basics", "command-line"],
+    careerPaths: ["cybersecurity"],
+    prerequisites: []
   },
   {
-    id: "learn-c",
-    title: "Learn C Programming",
-    provider: "Learn-C.org",
+    id: "google-data-analytics",
+    name: "Google Data Analytics Certificate",
+    provider: "Google",
+    type: "Course Certificate",
+    category: "IT and Data",
+    level: "Beginner",
+    description: "Beginner program on collecting, cleaning and analyzing data.",
+    cost: "Coursera subscription; US$49/month in the US and Canada at time of review. Regional prices may differ; check Coursera.",
+    link: "https://www.coursera.org/professional-certificates/google-data-analytics",
+    skills: ["data-analysis"],
+    careerPaths: [],
+    prerequisites: []
+  },
+  {
+    id: "cs50x",
+    name: "CS50x: Introduction to Computer Science",
+    provider: "Harvard CS50",
+    type: "Course Certificate",
     category: "Programming",
-    description:
-      "Practice C programming concepts through browser-based lessons and examples.",
-    url: "https://www.learn-c.org/",
-    suitableFor: [
-      "embedded-systems",
-      "software-development"
-    ]
+    level: "Beginner",
+    description: "Introductory computer science course that covers C, Python, algorithms and web programming.",
+    cost: "Course is free to audit; verified certificate listed at US$219. Check Harvard’s current course page.",
+    link: "https://pll.harvard.edu/course/cs50-introduction-computer-science",
+    skills: ["c-programming", "python-basics", "problem-solving", "web-basics"],
+    careerPaths: ["programming", "embedded"],
+    prerequisites: []
   },
   {
-    id: "git-documentation",
-    title: "Git Documentation",
-    provider: "Git",
-    category: "Developer Tools",
-    description:
-      "Learn the fundamentals of Git, including repositories, commits, branches, and collaboration.",
-    url: "https://git-scm.com/doc",
-    suitableFor: [
-      "software-development",
-      "networking",
-      "cybersecurity",
-      "embedded-systems"
-    ]
+    id: "freecodecamp-responsive-web",
+    name: "Responsive Web Design",
+    provider: "freeCodeCamp",
+    type: "Course Certificate",
+    category: "Programming",
+    level: "Beginner",
+    description: "Project-based course on HTML and CSS for building responsive web pages.",
+    cost: "Free.",
+    link: "https://www.freecodecamp.org/learn/responsive-web-design-v9/",
+    skills: ["web-basics"],
+    careerPaths: ["programming"],
+    prerequisites: []
   },
   {
-    id: "mdn-web-docs",
-    title: "MDN Web Docs",
-    provider: "Mozilla",
-    category: "Web Development",
-    description:
-      "Study HTML, CSS, JavaScript, and core web development concepts.",
-    url: "https://developer.mozilla.org/",
-    suitableFor: [
-      "software-development"
-    ]
+    id: "pcep-python",
+    name: "PCEP: Certified Entry-Level Python Programmer",
+    provider: "Python Institute",
+    type: "Certification",
+    category: "Programming",
+    level: "Beginner",
+    description: "Entry-level certification on Python programming basics.",
+    cost: "Exam fee starts at about US$69; verify current price and local options on Python Institute website.",
+    link: "https://pythoninstitute.org/pcep",
+    skills: ["python-basics", "problem-solving"],
+    careerPaths: ["programming", "iot"],
+    prerequisites: []
+  },
+  {
+    id: "lpi-linux-essentials",
+    name: "Linux Essentials",
+    provider: "Linux Professional Institute (LPI)",
+    type: "Certification",
+    category: "Linux and Systems Administration",
+    level: "Beginner",
+    description: "Entry-level certification on Linux basics and the command line.",
+    cost: "US$120 listed in LPI’s USD pricing table; check country-specific price on LPI website.",
+    link: "https://www.lpi.org/our-certifications/linux-essentials-overview/",
+    skills: ["linux-basics", "command-line"],
+    careerPaths: ["cybersecurity", "cloud"],
+    prerequisites: []
+  },
+  {
+    id: "comptia-linux-plus",
+    name: "CompTIA Linux+",
+    provider: "CompTIA",
+    type: "Certification",
+    category: "Linux and Systems Administration",
+    level: "Intermediate",
+    description: "Certification on Linux system administration, security and troubleshooting.",
+    cost: "Price varies; check CompTIA for the current exam voucher price.",
+    link: "https://www.comptia.org/certifications/linux",
+    skills: ["linux-basics", "command-line", "system-administration"],
+    careerPaths: ["cloud", "cybersecurity"],
+    prerequisites: []
+  },
+  {
+    id: "lfcs",
+    name: "Linux Foundation Certified System Administrator (LFCS)",
+    provider: "The Linux Foundation",
+    type: "Certification",
+    category: "Linux and Systems Administration",
+    level: "Intermediate",
+    description: "Hands-on certification for Linux system administration tasks.",
+    cost: "Exam-only price listed at US$445; bundles may cost more. Verify current price on Linux Foundation website.",
+    link: "https://training.linuxfoundation.org/certification/linux-foundation-certified-sysadmin-lfcs/",
+    skills: ["system-administration", "linux-basics", "command-line"],
+    careerPaths: ["cloud"],
+    prerequisites: []
+  },
+  {
+    id: "arduino-fundamentals",
+    name: "Arduino Fundamentals",
+    provider: "Arduino",
+    type: "Course Certificate",
+    category: "Embedded Systems",
+    level: "Beginner",
+    description: "Beginner learning material on Arduino boards, circuits and simple programs. Check the official site to see if a certificate is offered.",
+    cost: "Learning materials are available online; verify whether a certificate is offered and whether it has a fee.",
+    link: "https://docs.arduino.cc/learn/starting-guide/getting-started-arduino/",
+    skills: ["microcontrollers", "digital-electronics"],
+    careerPaths: ["embedded", "iot"],
+    prerequisites: []
+  },
+  {
+    id: "cisco-intro-iot",
+    name: "Introduction to IoT",
+    provider: "Cisco Networking Academy",
+    type: "Course Certificate",
+    category: "Embedded Systems",
+    level: "Beginner",
+    description: "Introductory course on the Internet of Things, sensors and connected devices.",
+    cost: "Course may be free; check the official course page for current course and credential costs.",
+    link: "https://www.netacad.com/courses/introduction-iot?courseLang=en-US",
+    skills: ["sensors-iot", "networking-basics"],
+    careerPaths: ["iot"],
+    prerequisites: []
+  },
+  {
+    id: "eta-ceta",
+    name: "Associate Certified Electronics Technician (CETa)",
+    provider: "ETA International",
+    type: "Certification",
+    category: "Electronics",
+    level: "Beginner",
+    description: "Entry-level electronics technician certification covering electronics fundamentals.",
+    cost: "Price varies; check ETA International for the current exam fee.",
+    link: "https://www.etai.org/electronics.html",
+    skills: ["circuits-basics", "digital-electronics"],
+    careerPaths: ["embedded"],
+    prerequisites: []
   }
 ];
+
+
+
