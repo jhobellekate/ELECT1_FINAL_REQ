@@ -58,6 +58,11 @@ function initDirectory() {
       openDetails(detailsBtn.dataset.id);
       return;
     }
+    var refreshStatusBtn = event.target.closest(".refresh-resource-status");
+    if (refreshStatusBtn) {
+      refreshResourceStatus(refreshStatusBtn.dataset.id);
+      return;
+    }
     var pathBtn = event.target.closest(".filter-path-btn");
     if (pathBtn) {
       filterByPath(pathBtn.dataset.path);
@@ -265,6 +270,11 @@ function openDetails(id) {
     '<p class="provider">' + r.provider + "</p>" +
     '<p class="badge-row"><span class="badge">' + r.type + '</span><span class="badge">' + r.category +
     '</span><span class="badge">' + r.level + "</span></p>" +
+    '<div class="resource-status-row" aria-live="polite">' +
+      '<div><strong>Provider status</strong><p id="resource-status-label">Checking ' + r.provider + "...</p></div>" +
+      '<span id="resource-status-value" class="status-pill">Checking</span>' +
+      '<button type="button" class="btn btn-outline refresh-resource-status" data-id="' + r.id + '" aria-label="Refresh provider status">Refresh</button>' +
+    "</div>" +
     "<p>" + (r.description || "No description available.") + "</p>" +
     "<h4>Skills covered</h4>" + listHTML(skills, "Skills are not listed for this resource.") +
     "<h4>Career relevance</h4>" + listHTML(paths, "Not linked to a specific career path yet.") +
@@ -287,6 +297,7 @@ function openDetails(id) {
   } else {
     dialog.setAttribute("open", ""); // older browsers
   }
+  refreshResourceStatus(r.id);
 }
 
 
@@ -298,6 +309,8 @@ function closeDetails() {
     dialog.removeAttribute("open");
   }
 }
+
+
 
 
 
