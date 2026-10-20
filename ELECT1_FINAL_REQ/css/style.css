@@ -1,0 +1,1177 @@
+/* Font from the reference design. If it cannot load, Arial is used instead. */
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap");
+
+
+/* ===== 1. Theme colors (custom properties) =====
+   Style: soft lavender and indigo, big rounded shapes, dark pill buttons.
+   Some variable names (like --teal) are kept from the old version so
+   the rest of the CSS keeps working. They now hold lavender/indigo colors. */
+:root {
+  --bg: #f5f5f7;            /* light page background */
+  --card-bg: #ffffff;
+  --nav-bg: #ffffff;
+  --nav-text: #2a2540;
+  --nav-accent: #2a2540;
+  --text: #2a2540;          /* dark indigo text */
+  --text-soft: #5a5675;
+  --accent: #4f46a5;        /* indigo for headings and links */
+  --teal: #9a96e0;          /* lavender for borders and highlights */
+  --btn-bg: #2a2540;        /* dark pill buttons */
+  --btn-text: #ffffff;
+  --border: #e4e2f1;
+  --error: #b3261e;
+  --ok: #1d7a52;
+
+
+  --ink: #2a2540;           /* dark cards and footer */
+  --ink-text: #ffffff;
+  --soft-lavender: #ebe9f9;
+  --lavender: #cfcdf2;
+  --badge-bg: #efeefb;
+  /* gradients used by the hero and light cards */
+  --grad-light: linear-gradient(160deg, #f1f0fc 0%, #cfcdf2 100%);
+  --grad-hero: linear-gradient(180deg, #f4f3fd 0%, #d6d4f4 45%, #6f67c4 100%);
+  --shadow: 0 10px 30px rgba(42, 37, 64, 0.12);
+}
+
+
+/* script.js adds or removes the dark-mode class on the body */
+body.dark-mode {
+  --bg: #141120;
+  --card-bg: #221d36;
+  --nav-bg: #141120;
+  --nav-text: #f1eefc;
+  --nav-accent: #f1eefc;
+  --text: #f1eefc;
+  --text-soft: #c4bfdf;
+  --accent: #bcb7ff;
+  --teal: #8d89e6;
+  --btn-bg: #cfcdf2;
+  --btn-text: #1b1730;
+  --border: #383157;
+  --error: #ff9a93;
+  --ok: #6fe3a6;
+
+
+  --ink: #2f2950;
+  --ink-text: #ffffff;
+  --soft-lavender: #2b2548;
+  --lavender: #3b3375;
+  --badge-bg: #2b2548;
+  --grad-light: linear-gradient(160deg, #2f2955 0%, #413a82 100%);
+  --grad-hero: linear-gradient(180deg, #2a2550 0%, #1f1a3d 50%, #0f0c1a 100%);
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+
+/* ===== 2. Basics ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+html {
+  scroll-behavior: smooth;
+}
+
+
+body {
+  font-family: "Plus Jakarta Sans", Arial, Helvetica, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+
+h1, h2, h3, h4 {
+  line-height: 1.2;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+
+ul, ol {
+  padding-left: 20px;
+}
+
+
+a {
+  color: var(--accent);
+}
+
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+
+[hidden] {
+  display: none !important;
+}
+
+
+:focus-visible {
+  outline: 3px solid var(--teal);
+  outline-offset: 2px;
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
+}
+
+
+/* ===== 3. Navigation (mobile first) =====
+   Light bar with dark text. The theme button is the dark pill (like "Launch BETA"). */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 24px;
+  background-color: var(--nav-bg);
+  border-bottom: 1px solid var(--border);
+}
+
+
+.logo {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--nav-accent);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+
+
+.menu-btn {
+  padding: 8px 16px;
+  background-color: transparent;
+  color: var(--nav-text);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+
+.theme-btn {
+  padding: 9px 18px;
+  background-color: var(--btn-bg);
+  color: var(--btn-text);
+  border: none;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+
+.menu-btn:hover,
+.theme-btn:hover {
+  opacity: 0.85;
+}
+
+
+/* On small screens the links are hidden until the Menu button adds the "open" class */
+.nav-links {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  list-style: none;
+  padding-left: 0;
+  width: 100%;
+  order: 3;
+}
+
+
+.nav-links.open {
+  display: flex;
+}
+
+
+.nav-links a {
+  display: block;
+  padding: 4px 0;
+  color: var(--nav-text);
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+
+.nav-links a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+
+/* ===== 4. Hero =====
+   One big rounded gradient panel with centered text, like the reference. */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  gap: 30px;
+  width: min(1100px, calc(100% - 32px));
+  margin: 24px auto;
+  padding: 50px 20px 40px;
+  background: var(--grad-hero);
+  border-radius: 28px;
+  text-align: center;
+}
+
+
+.hero-text {
+  max-width: 700px;
+  background: none;
+  border: none;
+  padding: 10px;
+}
+
+
+.tagline {
+  display: inline-block;
+  margin-bottom: 18px;
+  padding: 6px 16px;
+  background-color: rgba(255, 255, 255, 0.6);
+  color: var(--accent);
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+
+body.dark-mode .tagline {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+
+.hero h1 {
+  font-size: 2.2rem;
+  margin-bottom: 15px;
+}
+
+
+.hero-description {
+  color: var(--text-soft);
+  margin-bottom: 24px;
+}
+
+
+.hero-buttons,
+.form-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+
+.hero-buttons {
+  justify-content: center;
+}
+
+
+.hero-image {
+  width: 100%;
+  max-width: 460px;
+  margin: 0 auto;
+}
+
+
+.hero-image img {
+  display: block;
+  width: 100%;
+  border: 6px solid rgba(255, 255, 255, 0.85);
+  border-radius: 22px;
+  box-shadow: var(--shadow);
+}
+
+
+/* ===== 5. Buttons (pill shaped) ===== */
+.btn {
+  display: inline-block;
+  padding: 11px 24px;
+  background-color: var(--btn-bg);
+  color: var(--btn-text);
+  border: 1px solid var(--btn-bg);
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 500;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+}
+
+
+.btn:hover {
+  opacity: 0.85;
+}
+
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--text);
+  border-color: var(--text);
+}
+
+
+/* a button that looks like a text link */
+.link-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--accent);
+  font-family: inherit;
+  font-size: 0.95rem;
+  text-align: left;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+
+/* ===== 6. Sections ===== */
+.section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  scroll-margin-top: 70px;
+}
+
+
+.section h2 {
+  font-size: 2rem;
+  margin-bottom: 12px;
+}
+
+
+.sub-heading {
+  margin: 34px 0 12px;
+}
+
+
+.section-intro {
+  color: var(--text-soft);
+  margin-bottom: 28px;
+  max-width: 650px;
+}
+
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+
+.chip {
+  padding: 9px 18px;
+  background-color: var(--card-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+
+.chip:hover {
+  background-color: var(--lavender);
+  border-color: var(--lavender);
+}
+
+
+/* ===== 7. Credential types =====
+   The type card is light lavender, the sample list is white. */
+.credential-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+
+.credential-card,
+.credential-list,
+.about-box,
+.card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 28px;
+}
+
+
+.credential-card {
+  text-align: center;
+  background: var(--grad-light);
+  border: none;
+}
+
+
+.credential-card .icon {
+  display: block;
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+
+.credential-card h3 {
+  margin-bottom: 8px;
+  font-size: 1.5rem;
+}
+
+
+.credential-card p,
+.credential-list li {
+  color: var(--text-soft);
+}
+
+
+.credential-list h4 {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+
+.credential-list li {
+  margin-bottom: 6px;
+}
+
+
+/* ===== 8. Search and filters ===== */
+.search-box {
+  margin-bottom: 24px;
+}
+
+
+label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+
+#search-input,
+select {
+  width: 100%;
+  padding: 12px 16px;
+  background-color: var(--card-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+
+.filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0;
+}
+
+
+.filter-btn {
+  padding: 9px 18px;
+  background-color: var(--card-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+
+.filter-btn:hover {
+  background-color: var(--lavender);
+  border-color: var(--lavender);
+}
+
+
+.filter-btn.active {
+  background-color: var(--btn-bg);
+  border-color: var(--btn-bg);
+  color: var(--btn-text);
+}
+
+
+.select-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+
+.result-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+
+.result-count {
+  color: var(--text-soft);
+}
+
+
+/* ===== 9. Cards ===== */
+.resource-grid,
+.about-grid,
+.path-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+}
+
+
+.card h3 {
+  font-size: 1.15rem;
+  margin-bottom: 4px;
+}
+
+
+.card .provider,
+.provider {
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+
+.card .details {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 18px;
+  font-size: 0.9rem;
+  color: var(--text-soft);
+}
+
+
+.card .btn {
+  margin-top: auto;
+}
+
+
+.no-results {
+  display: none;
+  text-align: center;
+  color: var(--text-soft);
+  padding: 30px 0;
+}
+
+
+.badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 8px 0;
+}
+
+
+.badge {
+  padding: 3px 12px;
+  background-color: var(--badge-bg);
+  border-radius: 999px;
+  font-size: 0.8rem;
+  color: var(--accent);
+}
+
+
+.badge-soft {
+  background-color: transparent;
+  border: 1px dashed var(--teal);
+}
+
+
+/* ===== 10. Details pop-up ===== */
+dialog {
+  width: 92%;
+  max-width: 640px;
+  max-height: 90vh;
+  overflow-y: auto;
+  margin: auto;
+  padding: 30px;
+  background-color: var(--card-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+}
+
+
+dialog::backdrop {
+  background: rgba(20, 17, 32, 0.6);
+}
+
+
+dialog h3 {
+  margin-bottom: 4px;
+}
+
+
+dialog h4 {
+  margin: 16px 0 5px;
+  color: var(--accent);
+}
+
+
+dialog .btn {
+  margin-top: 15px;
+}
+
+
+/* ===== 11. About boxes and path cards ===== */
+.about-box h3,
+.about-box h4 {
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+
+.about-box h3 {
+  font-size: 1.4rem;
+}
+
+
+.about-box h4 {
+  margin-top: 12px;
+}
+
+
+.about-box p,
+.about-box li {
+  color: var(--text-soft);
+  margin-bottom: 6px;
+}
+
+
+.about-box .form-buttons {
+  margin-top: 15px;
+}
+
+
+/* In the About section the first box is light lavender and the others are dark indigo,
+   like the three feature cards in the reference. The dark boxes redefine a few
+   colors so the text inside them stays readable. */
+#about .about-grid > .about-box:first-child {
+  background: var(--grad-light);
+  border: none;
+}
+
+
+#about .about-grid > .about-box:not(:first-child) {
+  background-color: var(--ink);
+  border: none;
+  --accent: #ffffff;
+  --text: #ffffff;
+  --text-soft: #d9d5f2;
+}
+
+
+/* ===== 12. Career Path Explorer form ===== */
+.explorer-form {
+  display: grid;
+  gap: 16px;
+}
+
+
+fieldset {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 24px;
+}
+
+
+legend {
+  padding: 0 10px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+
+.radio-group,
+.check-group {
+  display: grid;
+  gap: 8px;
+}
+
+
+.radio-group label,
+.check-group label {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-weight: normal;
+  margin: 0;
+}
+
+
+input[type="radio"],
+input[type="checkbox"] {
+  margin-top: 5px;
+  accent-color: var(--btn-bg);
+}
+
+
+.hint {
+  color: var(--text-soft);
+}
+
+
+.error-msg {
+  color: var(--error);
+  font-weight: bold;
+  margin-top: 6px;
+}
+
+
+select[aria-invalid="true"] {
+  border: 2px solid var(--error);
+}
+
+
+.form-message {
+  color: var(--text-soft);
+}
+
+
+.form-message.error {
+  color: var(--error);
+  font-weight: bold;
+}
+
+
+/* ===== 12a. Live service status ===== */
+.status-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: end;
+  gap: 12px;
+  max-width: 720px;
+  margin-bottom: 10px;
+}
+
+
+#status-service {
+  width: 100%;
+  padding: 12px 16px;
+  background-color: var(--card-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+
+.status-message {
+  min-height: 1.6em;
+  color: var(--text-soft);
+  margin-bottom: 12px;
+}
+
+
+.status-message.error {
+  color: var(--error);
+  font-weight: bold;
+}
+
+
+.status-result {
+  max-width: 800px;
+  padding: 24px;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border);
+  border-left: 5px solid var(--teal);
+  border-radius: 20px;
+}
+
+
+.status-heading,
+.status-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+
+.status-category {
+  color: var(--text-soft);
+  font-size: 0.85rem;
+  text-transform: capitalize;
+}
+
+
+.status-heading h3 {
+  color: var(--accent);
+}
+
+
+.status-pill {
+  padding: 5px 14px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+
+.status-pill.operational { color: var(--ok); }
+.status-pill.degraded,
+.status-pill.down { color: var(--error); }
+.status-pill.unavailable { color: var(--text-soft); }
+
+
+.resource-status-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 12px 0;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+
+
+.resource-status-row > div {
+  flex: 1 1 180px;
+}
+
+
+.resource-status-row p {
+  margin: 3px 0 0;
+  color: var(--text-soft);
+}
+
+
+.resource-status-row .btn {
+  margin: 0;
+}
+
+
+.status-detail {
+  margin: 12px 0;
+  color: var(--text-soft);
+}
+
+
+.status-metrics {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin: 16px 0;
+}
+
+
+.status-metrics > div {
+  padding: 14px;
+  background-color: var(--bg);
+  border-radius: 14px;
+}
+
+
+.status-metrics dt {
+  color: var(--text-soft);
+  font-size: 0.85rem;
+}
+
+
+.status-metrics dd {
+  font-weight: bold;
+}
+
+
+.status-footer {
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  color: var(--text-soft);
+  font-size: 0.9rem;
+}
+
+
+.active-outages {
+  max-width: 800px;
+  margin-top: 34px;
+}
+
+
+.active-outages h3 {
+  margin-bottom: 8px;
+}
+
+
+.outage-list {
+  display: grid;
+  gap: 8px;
+  padding-left: 0;
+  list-style: none;
+}
+
+
+.outage-list li {
+  padding: 14px 16px;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--error);
+  border-radius: 14px;
+}
+
+
+.outage-list a {
+  font-weight: bold;
+}
+
+
+/* ===== 13. Roadmap ===== */
+.empty-state {
+  background-color: var(--card-bg);
+  border: 2px dashed var(--border);
+  border-radius: 24px;
+  padding: 34px;
+  text-align: center;
+  color: var(--text-soft);
+}
+
+
+.progress-box {
+  margin-bottom: 25px;
+}
+
+
+.progress-text {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+
+.progress {
+  height: 16px;
+  background-color: var(--soft-lavender);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+
+#progress-fill {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, #9a96e0, #4f46a5);
+  border-radius: 999px;
+  transition: width 0.3s;
+}
+
+
+.skills-columns {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+
+.steps {
+  list-style: none;
+  padding-left: 0;
+  display: grid;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+
+.step-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border);
+  border-left: 6px solid var(--teal);
+  border-radius: 20px;
+  padding: 20px;
+}
+
+
+.step-item.done {
+  border-left-color: var(--ok);
+  opacity: 0.8;
+}
+
+
+.step-item > input[type="checkbox"] {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+
+.step-title {
+  font-size: 1.05rem;
+  cursor: pointer;
+}
+
+
+.step-item.done .step-title {
+  text-decoration: line-through;
+}
+
+
+.step-body p,
+.needs-list {
+  color: var(--text-soft);
+  margin-bottom: 6px;
+  font-size: 0.95rem;
+}
+
+
+.step-body .form-buttons {
+  margin-top: 10px;
+}
+
+
+/* ===== 14. Footer ===== */
+.footer {
+  margin-top: 40px;
+  text-align: center;
+  padding: 36px 20px;
+  background-color: var(--ink);
+  border-radius: 28px 28px 0 0;
+  color: #d9d5f2;
+  font-size: 0.9rem;
+}
+
+
+.footer p {
+  margin-bottom: 5px;
+}
+
+
+/* ===== 15. Responsive layout ===== */
+@media (min-width: 600px) {
+  .status-form {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+
+  .status-metrics {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+
+  .credential-row {
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+  }
+
+
+  /* the list goes on the left for rows with list-left */
+  .credential-row.list-left .credential-list {
+    order: -1;
+  }
+
+
+  .resource-grid,
+  .path-grid,
+  .skills-columns {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+
+  .select-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+
+  .hero h1 {
+    font-size: 2.8rem;
+  }
+
+
+  .section h2 {
+    font-size: 2.4rem;
+  }
+}
+
+
+/* The full navigation bar needs more room because it has 8 links */
+@media (min-width: 1000px) {
+  .menu-btn {
+    display: none;
+  }
+
+
+  .nav-links {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 16px;
+    width: auto;
+    order: 0;
+  }
+
+
+  .nav-links a {
+    font-size: 0.9rem;
+  }
+}
+
+
+@media (min-width: 900px) {
+  .hero {
+    padding: 70px 30px 50px;
+  }
+
+
+  .hero h1 {
+    font-size: 3.4rem;
+  }
+
+
+  .resource-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+
+  .about-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+
+  .select-row {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+
+
+
+
