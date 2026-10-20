@@ -1,6 +1,114 @@
 CPE Learning Hub: Your Guide to Skills, Certifications, and Career Paths
 1. Proposed Website Title
-CPE Learning Hub: Your Guide to Skills, Certifications, and Career Paths
+CPE Learning Hub: Your Guide to Skills, Certifications, and Career Paths# CPE Learning Hub
+
+
+**Explore Your Path. Build Your Skills. Shape Your Future.**
+
+
+CPE Learning Hub is a single-page educational website for Computer Engineering students. It helps students explore technical certifications, courses and digital badges, compare career paths, and build a personal learning roadmap that is saved in their own browser.
+
+
+## Problem and audience
+
+
+Students who want to start earning certifications often do not know which ones exist, how they differ, or what to learn first. The website puts this information in one place.
+
+
+Intended users:
+
+
+- Computer Engineering, IT and related engineering students
+- Beginners interested in networking, cybersecurity, programming, embedded systems and cloud computing
+- Students preparing for internships or future technical work
+
+
+## Features implemented
+
+
+- Responsive navigation bar with a collapsible menu on small screens
+- Light and dark theme toggle (the choice is remembered)
+- Home section with tagline, quick-access buttons, featured certifications and career path shortcuts
+- Credential types section (certification, course certificate, digital badge)
+- Certification directory with cards, live search (name, provider, description, skills) and filters for category, credential type, difficulty level, career path and provider. Search and filters work together, and the result count updates.
+- "No results" message and a "Reset all filters" button
+- Certification details pop-up: provider, description, level, skills, career relevance, prerequisites (when known), suggested next steps, cost note and official link
+- Skills and Career Paths overview for six paths: Networking, Cybersecurity, Programming, Cloud Computing, Embedded Systems and IoT
+- Career Path Explorer form with a dropdown, skill-level radio buttons and checkboxes, plus validation messages for required fields
+- Roadmap generator that compares selected skills (and skills from completed credentials) with the path's typical skills, lists skills you have and skill gaps, and builds an ordered list of steps with prerequisite notes
+- Step checklist with a live progress bar
+- Progress, form answers and theme saved with `localStorage`, with safe handling of missing, damaged or outdated saved data
+- Learning Resources section with official links grouped by career path
+- About section
+
+
+## Technologies
+
+
+HTML5, CSS3 (custom properties, flexbox, grid, media queries), JavaScript (DOM, events, array methods, `localStorage`), Git and GitHub. No frameworks and no backend.
+
+
+## Run it locally
+
+
+1. Download or clone the repository.
+2. Put your certificate image in the `images/` folder as `fortinet_cert.png` (or change the file name in `index.html`).
+3. Open `index.html` in a browser, or use the Live Server extension in VS Code.
+
+
+The site loads every file from relative paths, so no build step or internet connection is needed to run it (the official links need internet).
+
+
+## File structure and feature ownership
+
+
+| File | What it does | Owner |
+| --- | --- | --- |
+| `index.html` | Page structure, section anchors, form, containers | (add name) |
+| `css/style.css` | Theme, layout, cards, forms, responsive styles | (add name) |
+| `js/script.js` | Shared helpers, theme toggle, mobile menu, start-up | (add name) |
+| `js/resources-data.js` | Resource records (certifications, courses, badges) | (add name) |
+| `js/career-data.js` | Skills, career paths, learning steps, official links | (add name) |
+| `js/directory.js` | Cards, search, filters, details pop-up | (add name) |
+| `js/roadmap.js` | Career overview, form, roadmap, checklist, progress, `localStorage` | (add name) |
+| `images/` | Certificate image and any images with permission | (add name) |
+
+
+### Adding a resource
+
+
+Copy one object in `js/resources-data.js`, give it a new unique `id`, and fill in `name`, `provider`, `type`, `category`, `level`, `description`, `cost`, `link`, `skills`, `careerPaths` and `prerequisites`. Use skill ids from `SKILLS` and path ids from `CAREER_PATHS` in `js/career-data.js`. Never change an existing `id`, because saved checklists use it.
+
+
+## Git workflow
+
+
+- `main` always holds the working version.
+- Create one branch per task, for example `feature/directory-filters` or `fix/roadmap-progress`.
+- Commit small changes with clear messages.
+- Open a pull request into `main` and ask a teammate to review it.
+- Merge only after the page runs without console errors.
+
+
+## Sources
+
+
+Certification information links to the official provider websites listed in `js/resources-data.js` and `js/career-data.js`: Cisco, CompTIA, ISC2, Google, Google Cloud, Amazon Web Services, Microsoft, IBM, Harvard CS50, freeCodeCamp, Python Institute, Linux Professional Institute, The Linux Foundation, Arduino, ETA International and others. Some links go to a provider's main training or certification page instead of one exact page, because providers often change their addresses.
+
+
+## Limitations
+
+
+- Roadmaps are educational suggestions. They are not official career advice and do not guarantee a job or a certification result.
+- Difficulty levels and the order of learning steps are the team's own estimates.
+- Fees, exam codes and entry requirements change. Prerequisites are left empty unless a reliable source supports them, so always confirm on the official site.
+- Links should be re-checked before each release because providers move their pages.
+- Data is stored only in the browser, so progress does not move between devices and is lost if the browser data is cleared.
+- The directory covers a sample of popular resources, not every certification.
+
+
+
+
 2. Website Concept
 CPE Learning Hub is an interactive educational website designed to help Computer Engineering students explore technical certifications, identify career opportunities, and develop the skills needed for their chosen career paths.
 The website will provide a certification directory containing information about credentials related to networking, cybersecurity, programming, embedded systems, cloud computing, electronics, and other Computer Engineering fields. Users will be able to search for certifications, filter them by category, difficulty level, career path, and provider, and view detailed information about each credential.
