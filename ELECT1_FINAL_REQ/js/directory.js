@@ -4,6 +4,25 @@
 
 var selectedCategory = "All"; // changed by the category buttons
 
+var PROVIDER_LOGOS = {
+  "Cisco": "cisco_logo.png",
+  "Cisco Networking Academy": "cisco_netacad_logo.png",
+  "CompTIA": "comptia_logo.png",
+  "ISC2": "isc2_logo.png",
+  "Google Cloud": "google_cloud_logo.png",
+  "Amazon Web Services": "AWS_logo.png",
+  "Microsoft": "microsoft_logo.png",
+  "IBM": "IBM_logo.png",
+  "Google": "google_logo.png",
+  "Harvard CS50": "harvard_cs50_logo.png",
+  "freeCodeCamp": "freecodecamp_logo.png",
+  "Python Institute": "python_institute_logo.png",
+  "Linux Professional Institute (LPI)": "linux_logo.png",
+  "The Linux Foundation": "linux_logo.png",
+  "Arduino": "arduino_logo.png",
+  "ETA International": "eta_int_logo.png"
+};
+
 
 // ---------- Setup ----------
 function initDirectory() {
@@ -183,8 +202,12 @@ function filterByPath(pathId) {
 
 // ---------- Cards ----------
 function cardHTML(resource) {
+  var logo = PROVIDER_LOGOS[resource.provider];
   return '<article class="card">' +
-    "<h3>" + resource.name + "</h3>" +
+    '<div class="card-heading">' +
+      (logo ? '<img class="card-logo" src="images/' + logo + '" alt="' + resource.provider + ' logo">' : "") +
+      "<h3>" + resource.name + "</h3>" +
+    "</div>" +
     '<p class="provider">' + resource.provider + "</p>" +
     '<ul class="details">' +
       "<li><strong>Type:</strong> " + resource.type + "</li>" +
@@ -309,7 +332,6 @@ function closeDetails() {
     dialog.removeAttribute("open");
   }
 }
-
 
 
 

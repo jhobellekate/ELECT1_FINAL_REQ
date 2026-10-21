@@ -555,7 +555,24 @@ select {
 
 .card h3 {
   font-size: 1.15rem;
-  margin-bottom: 4px;
+  margin: 0;
+}
+
+
+.card-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+  margin-bottom: 8px;
+}
+
+
+.card-logo {
+  width: clamp(44px, 12vw, 64px);
+  aspect-ratio: 1;
+  flex: 0 0 auto;
+  object-fit: contain;
 }
 
 
